@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set_style("whitegrid")
 
-
+# answer business requirement 1
 def page_churned_customer_study_body():
 
     # load data

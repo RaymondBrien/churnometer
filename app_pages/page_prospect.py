@@ -52,6 +52,12 @@ def page_prospect_body():
     )
     st.write("---")
 
+# Reminder: 
+# Predict Churn = Contract, InternetService. 
+# Predict Tenure = Monthly CHarges, Contract, PaymentMethod
+# Predict Cluster = OnlineBackup, MonthlyCharges, PhoneService
+# We need all these features to the pipelines.
+
     # Generate Live Data
     # check_variables_for_UI(tenure_features, churn_features, cluster_features)
     X_live = DrawInputsWidgets()
@@ -94,12 +100,13 @@ def DrawInputsWidgets():
     col5, col6, col7, col8 = st.beta_columns(4)
 
     # We are using these features to feed the ML pipeline - values copied from check_variables_for_UI() result
+    # {'InternetService', 'PhoneService', 'PaymentMethod', 'OnlineBackup', 'Contract', 'MonthlyCharges'}
 
     # create an empty DataFrame, which will be the live data
     X_live = pd.DataFrame([], index=[0])
 
     # from here on we draw the widget based on the variable type (numerical or categorical)
-    # and set initial values
+    # and set initial values, ordered by my logic of business requirement
     with col1:
         feature = "Contract"
         st_widget = st.selectbox(
@@ -150,6 +157,7 @@ def DrawInputsWidgets():
         )
     X_live[feature] = st_widget
 
-    # st.write(X_live)
+    # check prospect information as dataframe
+    # st.write(X_live) 
 
     return X_live
